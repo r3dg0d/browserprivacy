@@ -1,0 +1,13 @@
+/target
+**/*.rs.bk
+Cargo.lock
+*.swp
+*.swo
+*~
+.DS_Store
+.idea/
+.vscode/
+*.log
+/result
+/result-*
+STATUS.md

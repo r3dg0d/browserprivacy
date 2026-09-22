@@ -1,0 +1,44 @@
+[package]
+name = "browserprivacy"
+version = "0.1.0"
+edition = "2021"
+authors = ["r3dg0d <r3dg0d@users.noreply.github.com>"]
+description = "Read-only privacy auditor for Chromium- and Firefox-family browser profiles on Linux"
+license = "MIT"
+repository = "https://github.com/r3dg0d/browserprivacy"
+homepage = "https://github.com/r3dg0d/browserprivacy"
+documentation = "https://docs.rs/browserprivacy"
+readme = "README.md"
+keywords = ["browser", "privacy", "firefox", "chromium", "cli"]
+categories = ["command-line-utilities"]
+rust-version = "1.75"
+
+[[bin]]
+name = "browserprivacy"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std", "serde"] }
+clap = { version = "4.5", features = ["derive", "env", "wrap_help"] }
+clap_complete = "4.5"
+directories = "5"
+regex = "1.11"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+walkdir = "2"
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+pretty_assertions = "1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = 3
