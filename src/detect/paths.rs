@@ -6,8 +6,15 @@ pub fn discover_profiles(include_flatpak: bool, extra_roots: &[String]) -> Vec<P
     let home = dirs_home();
     let mut profiles = Vec::new();
 
-    // Firefox
+    // Firefox (legacy ~/.mozilla and XDG ~/.config/mozilla used by some NixOS setups)
     push_firefox(&mut profiles, &home.join(".mozilla/firefox"), "Firefox");
+    push_firefox(
+        &mut profiles,
+        &home.join(".config/mozilla/firefox"),
+        "Firefox (XDG)",
+    );
+    push_firefox(&mut profiles, &home.join(".librewolf"), "LibreWolf");
+    push_firefox(&mut profiles, &home.join(".waterfox"), "Waterfox");
 
     // Chromium-family native
     for (rel, name) in [
@@ -17,6 +24,8 @@ pub fn discover_profiles(include_flatpak: bool, extra_roots: &[String]) -> Vec<P
         (".config/microsoft-edge", "Microsoft Edge"),
         (".config/vivaldi", "Vivaldi"),
         (".config/opera", "Opera"),
+        (".config/net.imput.helium", "Helium"),
+        (".config/thorium", "Thorium"),
     ] {
         push_chromium(&mut profiles, &home.join(rel), name);
     }
